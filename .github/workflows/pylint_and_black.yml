@@ -19,9 +19,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
         pip install black
-    - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
     - name: Analysing the code with black
       run: |
         black (git ls-files '*.py') --check
+    - name: Analysing the code with pylint
+      run: |
+        pylint $(git ls-files '*.py')
