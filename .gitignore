@@ -1,6 +1,6 @@
 .venv/
+temp_tests/
 __pycache__/
 *.egg-info/
 build/
 .idea/
-temp_tests/
