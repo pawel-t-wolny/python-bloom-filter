@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # Automatically format Python files with black
-black ./sbloom
+poetry run black ./sbloom
 # Lint the Python files
-find ./sbloom "*.py" | xargs pylint
+poetry run pylint $(git ls-files '*.py')
