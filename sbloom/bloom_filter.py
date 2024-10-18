@@ -6,8 +6,7 @@ Authored by: Pawel Wolny
 """
 
 from typing import Optional
-
-from sbloom.segment import Segment
+from sbloom.segment import Segment, SegmentFullError
 
 
 class BloomFilter:
@@ -25,8 +24,11 @@ class BloomFilter:
             raise ValueError("Argument max_error has to have a value between 0 and 1")
         self.max_error = max_error
 
-        if max_elements is None:
-            self._arrays_and_counts = []
+        if not max_elements:
+            # Scalable bloom filter mode
+            self.scalable = True
+            initial_segment = Segment(max_filter_error=max_error)
+            self._segments: list[Segment] = [initial_segment]
 
         else:
             # Regular bloom filter mode
@@ -34,15 +36,26 @@ class BloomFilter:
                 raise ValueError(
                     "Argument max_elements has to be a value greater than 0"
                 )
+            self.scalable = False
             self.max_elements = max_elements
-            self._segment = Segment(max_error, max_elements)
+            self._segment = Segment(
+                max_filter_error=max_error, max_elements=max_elements
+            )
 
     def add(self, item) -> None:
         """
         Add an item to the filter.
         :param item: The item to be added.
         """
-        self._segment.add(item)
+        if self.scalable:
+            try:
+                self._segments[-1].add(item)
+            except SegmentFullError:
+                new_segment = Segment(previous_segment=self._segments[-1])
+                self._segments.append(new_segment)
+                new_segment.add(item)
+        else:
+            self._segment.add(item)
 
     def contains(self, item) -> bool:
         """
@@ -51,4 +64,6 @@ class BloomFilter:
         :return: True if the filter might contain the item and False if it does not contain the
         item.
         """
+        if self.scalable:
+            return any(segment.contains(item) for segment in self._segments)
         return self._segment.contains(item)
