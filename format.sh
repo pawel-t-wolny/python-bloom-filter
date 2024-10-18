@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # Automatically format Python files with black
-black ./src
+black ./sbloom
 # Lint the Python files
-find ./src -name "*.py" | xargs pylint
+find ./sbloom "*.py" | xargs pylint

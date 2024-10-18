@@ -1,26 +1,19 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "python-bloom-filter"
-dynamic = ["version"]
-dependencies = [
-    "mmh3",
-    "bitarray",
-]
-authors = [
-    {name="Pawel Wolny"},
-]
-description = "A small example package"
+[tool.poetry]
+name = "sbloom"
+version = "0.1.0"
+description = ""
+authors = ["Pawel Wolny <pawel.t.wolny@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
 
-[project.urls]
-Homepage = "https://github.com/pawel-t-wolny/python-bloom-filter"
-Issues = "https://github.com/pawel-t-wolny/python-bloom-filter/issues"
+[tool.poetry.dependencies]
+python = "^3.9"
+mmh3 = "^5.0.1"
+bitarray = "^3.0.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+pylint = "^3.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
