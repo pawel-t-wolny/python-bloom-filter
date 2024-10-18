@@ -7,7 +7,7 @@ Authored by: Pawel Wolny
 
 from typing import Optional
 
-from segment import Segment
+from sbloom.segment import Segment
 
 
 class BloomFilter:
