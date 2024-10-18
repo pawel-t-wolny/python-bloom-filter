@@ -1,6 +1,6 @@
 ![example workflow](https://github.com/pawel-t-wolny/sbloom/actions/workflows/pylint_and_black.yml/badge.svg)
 
-Python implementation of regular and scalable bloom filters based on the theoretical desctiption in the paper by Almeida et al. (2007).
+Python implementation of regular and scalable bloom filters based on the theoretical description in the paper by Almeida et al. (2007).
 
 Sources:
 
